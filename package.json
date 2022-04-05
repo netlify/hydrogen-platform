@@ -4,7 +4,8 @@
   "description": "Hydrogen support for Netlify Edge Functions",
   "main": "dist/index.js",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./plugin": "./dist/plugin.js"
   },
   "files": [
     "dist"
@@ -20,9 +21,11 @@
     "prepublishOnly": "run-s clean build"
   },
   "devDependencies": {
+    "@types/node": "^17.0.23",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "vite": "^2.9.1"
   },
   "types": "./dist/index.d.ts",
   "repository": {
@@ -32,5 +35,9 @@
   "bugs": {
     "url": "https://github.com/netlify-labs/hydrogen-platform/issues"
   },
-  "homepage": "https://github.com/netlify-labs/hydrogen-platform#readme"
+  "homepage": "https://github.com/netlify-labs/hydrogen-platform#readme",
+  "dependencies": {
+    "@netlify-labs/vite-plugin-netlify-edge": "^0.0.4",
+    "magic-string": "^0.26.1"
+  }
 }

@@ -1,7 +1,7 @@
+// @ts-ignore Replaced by vite during compilation
+import handleRequest from '__SERVER_ENTRY__'
 // @ts-ignore
-import handleRequest from '/src/App.server'
-// @ts-ignore
-import indexTemplate from '/dist/client/index.html?raw'
+import indexTemplate from '__INDEX_TEMPLATE__?raw'
 // @ts-ignore
 import staticPaths from '@static-manifest'
 
