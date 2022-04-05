@@ -10,7 +10,7 @@ const PLATFORM_MODULE = '@netlify-labs/hydrogen-platform/handler'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
-
+  let platformEntryPath: string
   return [
     netlifyPlugin(),
     {
@@ -19,15 +19,11 @@ const plugin = (): Array<Plugin> => {
         resolvedConfig = config
       },
       resolveId(id, importer) {
-        if (normalizePath(id).includes(PLATFORM_MODULE)) {
-          const hydrogenPath = path.dirname(
+        if (normalizePath(id).endsWith(PLATFORM_MODULE)) {
+          const platformPath = path.dirname(
             require.resolve('@netlify-labs/hydrogen-platform/package.json')
           )
-          const platformEntryPath = path.resolve(
-            hydrogenPath,
-            'dist',
-            'handler.mjs'
-          )
+          platformEntryPath = path.resolve(platformPath, 'dist', 'handler.mjs')
 
           return this.resolve(platformEntryPath, importer, {
             skipSelf: true,
@@ -36,7 +32,7 @@ const plugin = (): Array<Plugin> => {
         return null
       },
       transform(code, id) {
-        if (normalizePath(id).includes(PLATFORM_MODULE)) {
+        if (normalizePath(id).endsWith(platformEntryPath)) {
           code = code
             .replace(
               '__SERVER_ENTRY__',
@@ -44,15 +40,15 @@ const plugin = (): Array<Plugin> => {
             )
             .replace(
               '__INDEX_TEMPLATE__',
-              normalizePath(
-                path.resolve(
-                  resolvedConfig.root,
-                  resolvedConfig.build.outDir,
-                  '..',
-                  'client',
-                  'index.html'
+              process.env.HYDROGEN_INDEX_TEMPLATE ||
+                normalizePath(
+                  path.resolve(
+                    resolvedConfig.root,
+                    'dist',
+                    'client',
+                    'index.html'
+                  )
                 )
-              )
             )
 
           const ms = new MagicString(code)
