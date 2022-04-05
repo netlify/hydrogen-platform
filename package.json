@@ -2,10 +2,18 @@
   "name": "@netlify-labs/hydrogen-platform",
   "version": "0.0.2",
   "description": "Hydrogen support for Netlify Edge Functions",
-  "main": "dist/index.js",
+  "module": "./dist/index.mjs",
   "exports": {
-    ".": "./dist/index.js",
-    "./plugin": "./dist/plugin.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./plugin": {
+      "import": "./dist/plugin.mjs",
+      "require": "./dist/plugin.js"
+    },
+    "./handler": "./dist/handler.mjs",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -16,7 +24,10 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "build": "tsc",
+    "build:handler": "tsup-node src/handler.ts --format esm --dts",
+    "build:plugin": "tsup-node src/plugin.ts --format esm,cjs --dts",
+    "build:index": "tsup-node src/index.ts --format esm,cjs --dts",
+    "build": "npm-run-all -s clean -p build:*",
     "clean": "rimraf dist",
     "prepublishOnly": "run-s clean build"
   },
@@ -24,6 +35,7 @@
     "@types/node": "^17.0.23",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "tsup": "^5.12.4",
     "typescript": "^4.6.3",
     "vite": "^2.9.1"
   },

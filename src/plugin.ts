@@ -6,7 +6,7 @@ import MagicString from 'magic-string'
 import type { Plugin, ResolvedConfig } from 'vite'
 
 const HYDROGEN_DEFAULT_SERVER_ENTRY = '/src/App.server'
-const PLATFORM_MODULE = '@netlify-labs/hydrogen-platform'
+const PLATFORM_MODULE = '@netlify-labs/hydrogen-platform/handler'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
@@ -19,14 +19,14 @@ const plugin = (): Array<Plugin> => {
         resolvedConfig = config
       },
       resolveId(id, importer) {
-        if (id === PLATFORM_MODULE) {
+        if (normalizePath(id).includes(PLATFORM_MODULE)) {
           const hydrogenPath = path.dirname(
             require.resolve('@netlify-labs/hydrogen-platform/package.json')
           )
           const platformEntryPath = path.resolve(
             hydrogenPath,
             'dist',
-            'index.js'
+            'handler.mjs'
           )
 
           return this.resolve(platformEntryPath, importer, {
@@ -36,7 +36,7 @@ const plugin = (): Array<Plugin> => {
         return null
       },
       transform(code, id) {
-        if (id === PLATFORM_MODULE) {
+        if (normalizePath(id).includes(PLATFORM_MODULE)) {
           code = code
             .replace(
               '__SERVER_ENTRY__',
