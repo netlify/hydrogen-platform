@@ -1,4 +1,4 @@
-import netlifyPlugin from '@netlify-labs/vite-plugin-netlify-edge'
+import netlifyPlugin from '@netlify/vite-plugin-netlify-edge'
 import { normalizePath } from 'vite'
 import path from 'path'
 import MagicString from 'magic-string'
@@ -6,7 +6,7 @@ import MagicString from 'magic-string'
 import type { Plugin, ResolvedConfig } from 'vite'
 
 const HYDROGEN_DEFAULT_SERVER_ENTRY = '/src/App.server'
-const PLATFORM_MODULE = '@netlify-labs/hydrogen-platform/handler'
+const PLATFORM_MODULE = '@netlify/hydrogen-platform/handler'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
@@ -21,7 +21,7 @@ const plugin = (): Array<Plugin> => {
       resolveId(id, importer) {
         if (normalizePath(id).endsWith(PLATFORM_MODULE)) {
           const platformPath = path.dirname(
-            require.resolve('@netlify-labs/hydrogen-platform/package.json')
+            require.resolve('@netlify/hydrogen-platform/package.json')
           )
           platformEntryPath = path.resolve(platformPath, 'dist', 'handler.mjs')
 

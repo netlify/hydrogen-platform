@@ -5,7 +5,7 @@ This package is a Hydrogen platform that allows you to deploy your site to Netli
 ## Installation
 
 ```shell
-npm i -D @netlify-labs/hydrogen-platform
+npm i -D @netlify/hydrogen-platform
 ```
 
 Then add the plugin to your Vite config:
@@ -13,7 +13,7 @@ Then add the plugin to your Vite config:
 ```js
 // vite.config.js
 
-import netlifyPlugin from '@netlify-labs/hydrogen-platform/plugin'
+import netlifyPlugin from '@netlify/hydrogen-platform/plugin'
 import shopifyConfig from './shopify.config'
 
 export default defineConfig({
@@ -29,7 +29,7 @@ You then need to specify the SSR entrypoint in your build command:
 "scripts": {
     "build" "npm run build:client && npm run build:ssr",
     "build:client": "vite build --outDir dist/client --manifest",
-    "build:ssr": "cross-env WORKER=true vite build --ssr @netlify-labs/hydrogen-platform/handler",
+    "build:ssr": "cross-env WORKER=true vite build --ssr @netlify/hydrogen-platform/handler",
 }
 ```
 

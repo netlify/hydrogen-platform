@@ -1,5 +1,5 @@
 {
-  "name": "@netlify-labs/hydrogen-platform",
+  "name": "@netlify/hydrogen-platform",
   "version": "0.0.4",
   "description": "Hydrogen support for Netlify Edge Functions",
   "module": "./dist/index.mjs",
@@ -42,14 +42,14 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/netlify-labs/hydrogen-platform.git"
+    "url": "git+https://github.com/netlify/hydrogen-platform.git"
   },
   "bugs": {
-    "url": "https://github.com/netlify-labs/hydrogen-platform/issues"
+    "url": "https://github.com/netlify/hydrogen-platform/issues"
   },
-  "homepage": "https://github.com/netlify-labs/hydrogen-platform#readme",
+  "homepage": "https://github.com/netlify/hydrogen-platform#readme",
   "dependencies": {
-    "@netlify-labs/vite-plugin-netlify-edge": "^0.0.4",
+    "@netlify/vite-plugin-netlify-edge": "^0.0.4",
     "magic-string": "^0.26.1"
   }
 }
