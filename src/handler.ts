@@ -10,7 +10,7 @@ const handler = async (request: Request, context: any) => {
 
   // Serve static assets from the CDN
   if (pathname.startsWith('/assets/') || staticPaths.has(pathname)) {
-    return context.next()
+    return
   }
 
   // Badly-behaved libraries look for window instead of document to
