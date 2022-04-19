@@ -1,6 +1,6 @@
 {
   "name": "@netlify/hydrogen-platform",
-  "version": "0.0.4",
+  "version": "0.0.1",
   "description": "Hydrogen support for Netlify Edge Functions",
   "module": "./dist/index.mjs",
   "exports": {
@@ -20,9 +20,6 @@
   ],
   "author": "Matt Kane <matt.kane@netlify.com>",
   "license": "MIT",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "build:handler": "tsup-node src/handler.ts --format esm --dts",
     "build:plugin": "tsup-node src/plugin.ts --format esm,cjs --dts",
@@ -49,7 +46,7 @@
   },
   "homepage": "https://github.com/netlify/hydrogen-platform#readme",
   "dependencies": {
-    "@netlify/vite-plugin-netlify-edge": "^0.0.4",
+    "@netlify/vite-plugin-netlify-edge": "^0.0.1",
     "magic-string": "^0.26.1"
   }
 }
