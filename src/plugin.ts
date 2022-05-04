@@ -1,6 +1,7 @@
 import netlifyPlugin from '@netlify/vite-plugin-netlify-edge'
 import { normalizePath } from 'vite'
 import path from 'path'
+import glob from 'fast-glob'
 import MagicString from 'magic-string'
 
 import type { Plugin, ResolvedConfig } from 'vite'
@@ -12,7 +13,14 @@ const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
   let platformEntryPath: string
   return [
-    netlifyPlugin(),
+    netlifyPlugin({
+      additionalStaticPaths: (config) =>
+        glob
+          .sync('*.js', {
+            cwd: path.resolve(config.root, 'dist/client'),
+          })
+          .map((file) => `${config.base}${encodeURIComponent(file)}`),
+    }),
     {
       name: 'vite-plugin-netlify-hydrogen',
       configResolved(config) {
