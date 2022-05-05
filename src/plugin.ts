@@ -8,7 +8,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 
 const HYDROGEN_DEFAULT_SERVER_ENTRY = '/src/App.server'
 const PLATFORM_MODULE = '@netlify/hydrogen-platform/handler'
-const CLIENT_DIR = 'dist/client'
+const DEFAULT_PUBLISH_DIR = 'dist/client'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
@@ -20,7 +20,7 @@ const plugin = (): Array<Plugin> => {
           .sync('*.js', {
             cwd: path.resolve(
               config.root,
-              process.env.CLIENT_DIR || CLIENT_DIR
+              process.env.PUBLISH_DIR || DEFAULT_PUBLISH_DIR
             ),
           })
           .map((file) => `${config.base}${encodeURIComponent(file)}`),
@@ -56,7 +56,7 @@ const plugin = (): Array<Plugin> => {
                 normalizePath(
                   path.resolve(
                     resolvedConfig.root,
-                    process.env.CLIENT_DIR || CLIENT_DIR,
+                    process.env.PUBLISH_DIR || DEFAULT_PUBLISH_DIR,
                     'index.html'
                   )
                 )
