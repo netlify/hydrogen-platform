@@ -27,7 +27,7 @@ You then need to specify the SSR entrypoint in your build command:
 ```json
 // package.json
 "scripts": {
-    "build" "npm run build:client && npm run build:ssr",
+    "build": "npm run build:client && npm run build:ssr",
     "build:client": "vite build --outDir dist/client --manifest",
     "build:ssr": "cross-env WORKER=true vite build --ssr @netlify/hydrogen-platform/handler",
 }
