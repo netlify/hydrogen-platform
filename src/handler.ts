@@ -13,19 +13,17 @@ const handler = async (request: Request, context: any) => {
     return
   }
 
-  // Badly-behaved libraries look for window instead of document to
-  // check if it's in a browser.
-  delete (globalThis as any).window
+  ;(globalThis as any).Oxygen ||= {}
+  // @ts-ignore Deno global is available at runtime
+  ;(globalThis as any).Oxygen.env = Deno.env.toObject()
 
-  // This is where Hydrogen looks for the env var
-  ;(globalThis as any).Oxygen ||= { env: {} }
-  ;(globalThis as any).Oxygen.env.HYDROGEN_ENABLE_WORKER_STREAMING = true
+  // IP is on the context object. By default, this is where Hydrogen looks for it
+  request.headers.set('x-forwarded-for', context.ip)
 
   try {
     return await handleRequest(request, {
       indexTemplate,
       context,
-      buyerIpHeader: 'x-nf-client-connection-ip',
     })
   } catch (error: any) {
     return new Response(error.message || error.toString(), { status: 500 })
