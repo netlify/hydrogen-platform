@@ -6,33 +6,34 @@ import MagicString from 'magic-string'
 import type { Plugin, ResolvedConfig } from 'vite'
 
 const HYDROGEN_DEFAULT_SERVER_ENTRY = '/src/App.server'
-const PLATFORM_MODULE = '@netlify/hydrogen-platform/handler'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
-  let platformEntryPath: string
+  const platformEntrypoint = require.resolve(
+    '@netlify/hydrogen-platform/handler'
+  )
   return [
     netlifyPlugin(),
     {
       name: 'vite-plugin-netlify-hydrogen',
+      config(config) {
+        // If we're building for SSR, ensure we use the Netlify entrypoint and output directory
+        if (config?.build?.ssr) {
+          return {
+            build: {
+              ssr: platformEntrypoint,
+              outDir: '.netlify/edge-functions/handler',
+            },
+          }
+        }
+      },
       configResolved(config) {
+        // Save the config for later use
         resolvedConfig = config
       },
-      resolveId(id, importer) {
-        if (normalizePath(id).endsWith(PLATFORM_MODULE)) {
-          const platformPath = path.dirname(
-            require.resolve('@netlify/hydrogen-platform/package.json')
-          )
-          platformEntryPath = path.resolve(platformPath, 'dist', 'handler.mjs')
-
-          return this.resolve(platformEntryPath, importer, {
-            skipSelf: true,
-          })
-        }
-        return null
-      },
       transform(code, id) {
-        if (normalizePath(id).endsWith(platformEntryPath)) {
+        // Replace the magic strings in the server entrypoint with the correct values
+        if (normalizePath(id) === platformEntrypoint) {
           code = code
             .replace(
               '__SERVER_ENTRY__',
