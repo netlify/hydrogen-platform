@@ -17,7 +17,7 @@ jobs:
         with:
           token: ${{ steps.get-token.outputs.token }}
           release-type: node
-          package-name: '@netlify/plugin-nextjs'
+          package-name: '@netlify/hydrogen-platform'
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.release_created }}
       - uses: actions/setup-node@v2
