@@ -1,0 +1,3 @@
+[build]
+command = "cd ../../ && npm run build && cd - && npm run build"
+publish = "dist/client"
