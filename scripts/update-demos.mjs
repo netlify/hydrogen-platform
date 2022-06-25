@@ -39,6 +39,6 @@ async function addPlatformDependency(root) {
   const templatePackageJson = JSON.parse(
     await readFile(packageJsonFile, 'utf8')
   )
-  templatePackageJson.devDependencies['@netlify/hydrogen-platform'] = '../..'
+  templatePackageJson.devDependencies['@netlify/hydrogen-platform'] = '*'
   await writeFile(packageJsonFile, JSON.stringify(templatePackageJson, null, 2))
 }

@@ -11,13 +11,6 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
 
-      - name: Checkout the Hydrogen repo
-        uses: actions/checkout@v3
-        with:
-          repository: Shopify/hydrogen
-          ref: dist
-          path: upstream
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -30,8 +23,8 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4.0.4
         with:
-          title: 'chore: update demo sites from Hydrogen repository'
-          commit-message: 'chore: update demo sites from Hydrogen repository'
+          title: 'chore: update demo sites from Hydrogen'
+          commit-message: 'chore: update demo sites from Hydrogen'
           committer: Netlify Bot <bot@netlify.com>
           author: Netlify Bot <bot@netlify.com>
           branch: bot/update-demo-sites
