@@ -13,7 +13,7 @@
     "@shopify/cli": "latest",
     "@shopify/cli-hydrogen": "latest",
     "vite": "^2.9.0",
-    "@netlify/hydrogen-platform": "file:../.."
+    "@netlify/hydrogen-platform": "*"
   },
   "dependencies": {
     "@shopify/hydrogen": "^1.0.0",

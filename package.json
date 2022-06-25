@@ -1,32 +1,12 @@
 {
-  "name": "@netlify/hydrogen-platform",
-  "version": "1.0.0",
+  "name": "netlify-hydrogen-platform-ws",
+  "version": "0.0.0",
   "description": "Hydrogen support for Netlify Edge Functions",
-  "module": "./dist/index.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./plugin": {
-      "import": "./dist/plugin.mjs",
-      "require": "./dist/plugin.js"
-    },
-    "./handler": "./dist/handler.mjs",
-    "./package.json": "./package.json"
-  },
-  "files": [
-    "dist"
-  ],
   "author": "Matt Kane <matt.kane@netlify.com>",
   "license": "MIT",
   "scripts": {
-    "build:handler": "tsup-node src/handler.ts --format esm --dts",
-    "build:plugin": "tsup-node src/plugin.ts --format esm,cjs --dts",
-    "build:index": "tsup-node src/index.ts --format esm,cjs --dts",
-    "build": "npm-run-all -s clean -p build:*",
-    "clean": "rimraf dist",
-    "prepublishOnly": "run-s clean build"
+    "build": "yarn workspace @netlify/hydrogen-platform build",
+    "postinstall": "yarn build"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",
@@ -36,7 +16,6 @@
     "typescript": "^4.6.3",
     "vite": "^2.9.1"
   },
-  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/netlify/hydrogen-platform.git"
@@ -45,8 +24,9 @@
     "url": "https://github.com/netlify/hydrogen-platform/issues"
   },
   "homepage": "https://github.com/netlify/hydrogen-platform#readme",
-  "dependencies": {
-    "@netlify/vite-plugin-netlify-edge": "^1.1.0",
-    "magic-string": "^0.26.1"
-  }
+  "workspaces": [
+    "demos/*",
+    "packages/*"
+  ],
+  "private": "true"
 }

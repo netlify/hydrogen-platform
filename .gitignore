@@ -2,6 +2,5 @@ node_modules
 dist
 upstream
 .DS_Store
-
-# Local Netlify folder
 .netlify
+yarn-error.log

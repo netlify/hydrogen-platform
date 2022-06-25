@@ -1,4 +1,7 @@
 [build]
-command = "cd ../../ && npm ci && npm run build && cd - && npm run build"
+command = "yarn workspace @netlify/hydrogen-platform install && yarn workspace @netlify/hydrogen-platform build && yarn build"
 publish = "dist/client"
 ignore = "if [ $CACHED_COMMIT_REF == $COMMIT_REF ]; then (exit 1); else git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ../..; fi;"
+
+[build.environment]
+NETLIFY_USE_YARN = "1"
