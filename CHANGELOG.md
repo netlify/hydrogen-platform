@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/netlify/hydrogen-platform/compare/v1.0.0...v1.1.0) (2022-08-08)
+
+
+### Features
+
+* add support for in-memory cache ([3bbfae5](https://github.com/netlify/hydrogen-platform/commit/3bbfae5712d0720a5766cd1032aab8eb5be4c5ab))
+
 ## [1.0.0](https://github.com/netlify/hydrogen-platform/compare/v0.0.2...v1.0.0) (2022-06-22)
 
 
