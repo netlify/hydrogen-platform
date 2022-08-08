@@ -11,6 +11,10 @@ import { RequestHandler } from '@shopify/hydrogen/types'
 const handleRequest = entrypoint as RequestHandler
 const memoryCache = new InMemoryCache()
 
+;(globalThis as any).Oxygen ||= {}
+// @ts-ignore Deno global is available at runtime
+;(globalThis as any).Oxygen.env = Deno.env.toObject()
+
 const handler = async (request: Request, context: any) => {
   const { pathname } = new URL(request.url)
 
@@ -18,10 +22,6 @@ const handler = async (request: Request, context: any) => {
   if (pathname.startsWith('/assets/') || staticPaths.has(pathname)) {
     return
   }
-
-  ;(globalThis as any).Oxygen ||= {}
-  // @ts-ignore Deno global is available at runtime
-  ;(globalThis as any).Oxygen.env = Deno.env.toObject()
 
   // Netlify Edge Functions currently do not support CacheStorage, so we fall back to in-memory caching until they do.
   const cache =
