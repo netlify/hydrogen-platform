@@ -4,10 +4,6 @@
   "description": "Hydrogen support for Netlify Edge Functions",
   "author": "Matt Kane <matt.kane@netlify.com>",
   "license": "MIT",
-  "scripts": {
-    "build": "yarn workspace @netlify/hydrogen-platform build",
-    "postinstall": "yarn build"
-  },
   "peerDependencies": {
     "@shopify/hydrogen": "^1.0.0"
   },

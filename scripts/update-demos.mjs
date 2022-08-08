@@ -19,8 +19,6 @@ for (const template of templates) {
     'demos',
     '--name',
     template,
-    '-d',
-    'yarn',
   ])
   const templateDir = resolve(destination, template)
   await addPlatformDependency(templateDir)
