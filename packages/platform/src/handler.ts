@@ -6,7 +6,7 @@ import indexTemplate from '__INDEX_TEMPLATE__?raw'
 import staticPaths from '@static-manifest'
 
 import { InMemoryCache } from '@shopify/hydrogen/cache/in-memory'
-import { RequestHandler } from '@shopify/hydrogen/types'
+import { RequestHandler, RuntimeContext } from '@shopify/hydrogen/types'
 
 const handleRequest = entrypoint as RequestHandler
 const memoryCache = new InMemoryCache()
@@ -30,10 +30,13 @@ const handler = async (request: Request, context: any) => {
   // IP is on the context object. By default, this is where Hydrogen looks for it
   request.headers.set('x-forwarded-for', context.ip)
 
+  // no-op, because we don't need to wait
+  const waitUntil: RuntimeContext['waitUntil'] = () => {}
+
   try {
     return await handleRequest(request, {
       indexTemplate,
-      context,
+      context: { waitUntil, ...context },
       cache,
     })
   } catch (error: any) {
