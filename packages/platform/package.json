@@ -1,0 +1,49 @@
+{
+  "name": "@netlify/hydrogen-platform",
+  "version": "1.0.1",
+  "description": "Hydrogen support for Netlify Edge Functions",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./plugin": {
+      "import": "./dist/plugin.mjs",
+      "require": "./dist/plugin.js"
+    },
+    "./handler": "./dist/handler.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Matt Kane <matt.kane@netlify.com>",
+  "license": "MIT",
+  "scripts": {
+    "build:handler": "tsup-node src/handler.ts --format esm --dts",
+    "build:plugin": "tsup-node src/plugin.ts --format esm,cjs --dts",
+    "build:index": "tsup-node src/index.ts --format esm,cjs --dts",
+    "build": "npm-run-all -s clean -p build:*",
+    "clean": "rimraf dist",
+    "prepublishOnly": "run-s clean build"
+  },
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netlify/hydrogen-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/netlify/hydrogen-platform/issues"
+  },
+  "homepage": "https://github.com/netlify/hydrogen-platform#readme",
+  "dependencies": {
+    "@netlify/vite-plugin-netlify-edge": "^1.1.0",
+    "magic-string": "^0.26.1"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.0.0"
+  }
+}

@@ -1,21 +1,33 @@
 // @ts-check
 import { existsSync } from 'node:fs'
-import { cp, rm, readdir, readFile, writeFile } from 'node:fs/promises'
+import { cp, rm, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
-const source = resolve('upstream', 'templates')
+import { execa } from 'execa'
 const destination = resolve('demos')
 if (existsSync(destination)) {
   await rm(destination, { recursive: true })
 }
 
-if (!existsSync(source)) {
-  console.error(`Could not find templates at ${source}`)
-  process.exit(1)
-}
+const templates = ['hello-world-ts', 'demo-store-ts']
 
-await cp(source, destination, {
-  recursive: true,
-})
+for (const template of templates) {
+  await execa('npx', [
+    '@shopify/create-hydrogen@latest',
+    '--template',
+    template,
+    '--path',
+    'demos',
+    '--name',
+    template,
+  ])
+  const templateDir = resolve(destination, template)
+  await addPlatformDependency(templateDir)
+  // Strip the -ts or -js from the name
+  const normalizedTemplate = template.slice(0, -3)
+  await cp(resolve('scripts', 'templates', normalizedTemplate), templateDir, {
+    recursive: true,
+  })
+}
 
 async function addPlatformDependency(root) {
   const packageJsonFile = resolve(root, 'package.json')
@@ -25,21 +37,6 @@ async function addPlatformDependency(root) {
   const templatePackageJson = JSON.parse(
     await readFile(packageJsonFile, 'utf8')
   )
-  templatePackageJson.devDependencies['@netlify/hydrogen-platform'] =
-    'file:../..'
+  templatePackageJson.devDependencies['@netlify/hydrogen-platform'] = '*'
   await writeFile(packageJsonFile, JSON.stringify(templatePackageJson, null, 2))
-}
-
-const templates = await readdir(destination)
-for (const template of templates) {
-  if (!template.endsWith('-js') && !template.endsWith('-ts')) {
-    continue
-  }
-  const templateDir = resolve(destination, template)
-  await addPlatformDependency(templateDir)
-  // Strip the -ts or -js from the name
-  const normalizedTemplate = template.slice(0, -3)
-  await cp(resolve('scripts', 'templates', normalizedTemplate), templateDir, {
-    recursive: true,
-  })
 }

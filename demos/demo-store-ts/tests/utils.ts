@@ -3,10 +3,9 @@ import {
   type Page,
   type Response as PlaywrightResponse,
 } from 'playwright';
+import '@shopify/hydrogen/web-polyfills';
 import type {Server} from 'http';
 import {createServer as createViteDevServer} from 'vite';
-
-export const DEFAULT_DELAY = 60000;
 
 export interface HydrogenSession {
   page: Page;

@@ -2,3 +2,5 @@ node_modules
 dist
 upstream
 .DS_Store
+.netlify
+yarn-error.log
