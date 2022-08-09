@@ -28,10 +28,10 @@ jobs:
         if: ${{ steps.release.outputs.releases_created }}
       - name: Install dependencies
         run: CI=1 npm ci
-        working-directory: plugin
+        working-directory: packages/platform
         if: ${{ steps.release.outputs.releases_created }}
       - run: npm publish
-        working-directory: plugin
+        working-directory: packages/platform
         if: ${{ steps.release.outputs.releases_created }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
