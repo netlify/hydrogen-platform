@@ -21,7 +21,7 @@ jobs:
           node scripts/update-demos.mjs
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.1.1
+        uses: peter-evans/create-pull-request@v4.1.2
         with:
           title: 'chore: update demo sites from Hydrogen'
           commit-message: 'chore: update demo sites from Hydrogen'
