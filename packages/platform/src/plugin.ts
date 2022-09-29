@@ -1,11 +1,6 @@
 import netlifyPlugin from '@netlify/vite-plugin-netlify-edge'
-import { normalizePath } from 'vite'
-import path from 'path'
-import MagicString from 'magic-string'
 
 import type { Plugin, ResolvedConfig } from 'vite'
-
-const HYDROGEN_DEFAULT_SERVER_ENTRY = '/src/App.server'
 
 const plugin = (): Array<Plugin> => {
   let resolvedConfig: ResolvedConfig
@@ -30,34 +25,6 @@ const plugin = (): Array<Plugin> => {
       configResolved(config) {
         // Save the config for later use
         resolvedConfig = config
-      },
-      transform(code, id) {
-        // Replace the magic strings in the server entrypoint with the correct values
-        if (normalizePath(id) === platformEntrypoint) {
-          code = code
-            .replace(
-              '__SERVER_ENTRY__',
-              process.env.HYDROGEN_SERVER_ENTRY || HYDROGEN_DEFAULT_SERVER_ENTRY
-            )
-            .replace(
-              '__INDEX_TEMPLATE__',
-              process.env.HYDROGEN_INDEX_TEMPLATE ||
-                normalizePath(
-                  path.resolve(
-                    resolvedConfig.root,
-                    'dist',
-                    'client',
-                    'index.html'
-                  )
-                )
-            )
-
-          const ms = new MagicString(code)
-          return {
-            code: ms.toString(),
-            map: ms.generateMap({ file: id, source: id }),
-          }
-        }
       },
     },
   ]
