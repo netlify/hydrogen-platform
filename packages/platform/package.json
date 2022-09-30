@@ -1,6 +1,6 @@
 {
   "name": "@netlify/hydrogen-platform",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Hydrogen support for Netlify Edge Functions",
   "module": "./dist/index.mjs",
   "exports": {
