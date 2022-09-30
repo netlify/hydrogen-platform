@@ -1,14 +1,10 @@
-// @ts-ignore Replaced by vite during compilation
-import entrypoint from '__SERVER_ENTRY__'
-// @ts-ignore
-import indexTemplate from '__INDEX_TEMPLATE__?raw'
+import { handleRequest, indexTemplate } from '@shopify/hydrogen/platforms'
 // @ts-ignore
 import staticPaths from '@static-manifest'
 
 import { InMemoryCache } from '@shopify/hydrogen/cache/in-memory'
-import { RequestHandler, RuntimeContext } from '@shopify/hydrogen/types'
+import { RuntimeContext } from '@shopify/hydrogen/types'
 
-const handleRequest = entrypoint as RequestHandler
 const memoryCache = new InMemoryCache()
 
 ;(globalThis as any).Oxygen ||= {}
