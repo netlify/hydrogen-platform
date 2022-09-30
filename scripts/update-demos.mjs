@@ -1,6 +1,6 @@
 // @ts-check
 import { existsSync } from 'node:fs'
-import { cp, rm, readFile, writeFile } from 'node:fs/promises'
+import { cp, rm, readFile, writeFile, unlink } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { execa } from 'execa'
 const destination = resolve('demos')
@@ -8,13 +8,14 @@ if (existsSync(destination)) {
   await rm(destination, { recursive: true })
 }
 
-const templates = ['hello-world-ts', 'demo-store-ts']
+const templates = ['hello-world', 'demo-store']
 
 for (const template of templates) {
   await execa('npx', [
     '@shopify/create-hydrogen@latest',
     '--template',
     template,
+    '--ts',
     '--path',
     'demos',
     '--name',
@@ -22,11 +23,11 @@ for (const template of templates) {
   ])
   const templateDir = resolve(destination, template)
   await addPlatformDependency(templateDir)
-  // Strip the -ts or -js from the name
-  const normalizedTemplate = template.slice(0, -3)
-  await cp(resolve('scripts', 'templates', normalizedTemplate), templateDir, {
+  await cp(resolve('scripts', 'templates', template), templateDir, {
     recursive: true,
   })
+
+  await unlink(resolve('scripts', 'templates', template, '.git'))
 }
 
 async function addPlatformDependency(root) {
