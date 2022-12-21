@@ -41,7 +41,7 @@
     "@netlify/vite-plugin-netlify-edge": "^1.1.1"
   },
   "peerDependencies": {
-    "vite": "^2.9.0"
+    "vite": "^4.0.0"
   },
   "devDependencies": {
     "@shopify/hydrogen": "^1.2.0",
@@ -50,6 +50,6 @@
     "rimraf": "^3.0.2",
     "tsup": "^6.0.0",
     "typescript": "^4.0.0",
-    "vite": "^2.9.0"
+    "vite": "^4.0.0"
   }
 }
