@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/netlify/hydrogen-platform/compare/hydrogen-platform-v1.1.3...hydrogen-platform-v1.1.4) (2023-01-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @netlify/vite-plugin-netlify-edge to ^1.1.2 ([11c9759](https://github.com/netlify/hydrogen-platform/commit/11c9759cc1563850a4384a1f4eee38e575d06eb1))
+
 ## [1.1.3](https://github.com/netlify/hydrogen-platform/compare/hydrogen-platform-v1.1.2...hydrogen-platform-v1.1.3) (2022-11-28)
 
 
