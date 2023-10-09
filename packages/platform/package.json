@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/netlify/hydrogen-platform#readme",
   "dependencies": {
-    "@netlify/vite-plugin-netlify-edge": "^1.1.2"
+    "@netlify/vite-plugin-netlify-edge": "^1.1.3"
   },
   "peerDependencies": {
     "vite": "^2.9.0"
