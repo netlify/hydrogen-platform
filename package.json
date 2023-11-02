@@ -5,7 +5,7 @@
   "author": "Matt Kane <matt.kane@netlify.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@shopify/hydrogen": "^1.0.0"
+    "@shopify/hydrogen": "^2023.0.0"
   },
   "devDependencies": {
     "execa": "^6.1.0",
