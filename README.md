@@ -1,4 +1,4 @@
-# Hydrogen on Netlify Edge Functions
+# ⚠️ This package is deprecated. See [the new template](https://github.com/netlify/hydrogen-template) to deploy Hydrogen to Netlify
 
 This package is a Hydrogen platform that allows you to deploy your site to Netlify Edge Functions.
 
